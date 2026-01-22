@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useRef, useEffect, ButtonHTMLAttributes } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/lib/utils';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outline' | 'ghost';
 }
 
@@ -15,26 +15,23 @@ const Button = ({ className, variant = 'primary', children, ...props }: ButtonPr
     const button = buttonRef.current;
     if (!button) return;
 
+    // Use quickTo for better performance and simpler state management
+    // This avoids creating new tweens on every mousemove which can cause race conditions
+    const xTo = gsap.quickTo(button, "x", { duration: 0.3, ease: "power2.out" });
+    const yTo = gsap.quickTo(button, "y", { duration: 0.3, ease: "power2.out" });
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = button.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-
-      gsap.to(button, {
-        x: x * 0.2,
-        y: y * 0.2,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
+      
+      xTo(x * 0.2);
+      yTo(y * 0.2);
     };
 
     const handleMouseLeave = () => {
-      gsap.to(button, {
-        x: 0,
-        y: 0,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
+      xTo(0);
+      yTo(0);
     };
 
     button.addEventListener('mousemove', handleMouseMove);
@@ -43,6 +40,8 @@ const Button = ({ className, variant = 'primary', children, ...props }: ButtonPr
     return () => {
       button.removeEventListener('mousemove', handleMouseMove);
       button.removeEventListener('mouseleave', handleMouseLeave);
+      // Ensure any active animations are killed immediately on unmount
+      gsap.killTweensOf(button);
     };
   }, []);
 

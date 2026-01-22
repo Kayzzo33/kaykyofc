@@ -6,63 +6,55 @@ import { cn } from '@/lib/utils';
 import Button from '@/components/ui/Button';
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [pathname, setPathname] = useState('/');
+  const [activeSection, setActiveSection] = useState('home');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  // Function to handle scroll to section
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    const container = document.querySelector('.snap-container');
     
-    // Simple pathname simulation
-    setPathname(window.location.pathname);
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (element && container) {
+      container.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+      setIsMobileOpen(false);
+    }
+  };
 
   const navLinks = [
-    { name: 'Início', href: '/' },
-    { name: 'Projetos', href: '#projects' },
-    { name: 'Sobre', href: '#' }, // Simplified for SPA
-    { name: 'Serviços', href: '#services' },
+    { name: 'Home', id: 'home' },
+    { name: 'Sobre', id: 'about' },
+    { name: 'Skills', id: 'skills' },
+    { name: 'Projetos', id: 'projects' },
+    { name: 'Contato', id: 'contact' },
   ];
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300",
-        isScrolled ? "bg-bg-primary/80 backdrop-blur-md border-b border-white/5 py-4" : "bg-transparent py-6"
-      )}
-    >
-      <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-        <a href="/" className="text-2xl font-bold tracking-tighter group">
-          KAYZZ<span className="text-blue-primary">.</span>
-        </a>
+    <header className="fixed top-0 w-full z-50 mix-blend-difference text-white py-6">
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        <button onClick={() => scrollToSection('home')} className="text-2xl font-bold tracking-tighter group hover:opacity-80 transition-opacity">
+          KAYZZ<span className="text-blue-primary">_</span>
+        </button>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-blue-primary",
-                pathname === link.href ? "text-blue-primary" : "text-gray-muted"
-              )}
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className="text-sm font-medium uppercase tracking-widest hover:text-blue-primary transition-colors relative group"
             >
               {link.name}
-            </a>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-primary transition-all group-hover:w-full"></span>
+            </button>
           ))}
-          <Button variant="primary" className="ml-4 py-2 px-6 text-sm">
-            Falar Comigo
-          </Button>
         </nav>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white z-50"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
         >
           {isMobileOpen ? <X /> : <Menu />}
@@ -71,18 +63,18 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-bg-secondary border-b border-white/10 p-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-gray-text hover:text-blue-primary py-2"
-              onClick={() => setIsMobileOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-          <Button className="w-full">Solicitar Orçamento</Button>
+        <div className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex items-center justify-center">
+          <div className="flex flex-col gap-8 text-center">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className="text-2xl font-light uppercase tracking-widest text-white hover:text-blue-primary"
+              >
+                {link.name}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </header>

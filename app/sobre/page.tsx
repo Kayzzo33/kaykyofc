@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
 
 const timeline = [
   { year: "2017", title: "O Começo", desc: "Descobri a programação através da robótica. Primeiros passos com HTML e CSS." },

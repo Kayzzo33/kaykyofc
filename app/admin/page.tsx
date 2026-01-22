@@ -5,19 +5,18 @@ import Button from '@/components/ui/Button';
 import { Lock } from 'lucide-react';
 import { auth } from '@/lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/admin/dashboard');
+      // Fallback for client-side only environments without next/navigation
+      window.location.href = '/admin/dashboard';
     } catch (err) {
       setError('Credenciais inválidas. Acesso negado.');
     }

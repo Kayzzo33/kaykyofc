@@ -31,18 +31,23 @@ function Particles(props: any) {
   });
 
   return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false} {...props}>
-        <PointMaterial
-          transparent
-          color="#0ea5e9"
-          size={0.02}
-          sizeAttenuation={true}
-          depthWrite={false}
-          opacity={0.6}
-        />
-      </Points>
-    </group>
+    <Points 
+      ref={ref} 
+      positions={positions} 
+      stride={3} 
+      frustumCulled={false} 
+      rotation={[0, 0, Math.PI / 4]}
+      {...props}
+    >
+      <PointMaterial
+        transparent
+        color="#0ea5e9"
+        size={0.02}
+        sizeAttenuation={true}
+        depthWrite={false}
+        opacity={0.6}
+      />
+    </Points>
   );
 }
 

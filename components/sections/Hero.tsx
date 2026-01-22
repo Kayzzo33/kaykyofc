@@ -3,124 +3,127 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import Button from '@/components/ui/Button';
-import { ArrowRight, Code2 } from 'lucide-react';
-import ParticleBackground from '@/components/animations/ParticleBackground';
+import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const desktopRef = useRef<HTMLDivElement>(null);
+
+  const scrollToAbout = () => {
+    const element = document.getElementById('about');
+    const container = document.querySelector('.snap-container');
+    if (element && container) {
+      container.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
+    if (!containerRef.current) return;
+
     const ctx = gsap.context(() => {
-      // Staggered reveal animation
       const tl = gsap.timeline();
+
+      if (textRef.current) {
+        tl.fromTo(textRef.current, 
+          { opacity: 0, x: -50 },
+          { opacity: 1, x: 0, duration: 1, ease: "power3.out" }
+        );
+      }
       
-      tl.from(".hero-badge", { 
-        y: -20, 
-        opacity: 0, 
-        duration: 0.8, 
-        ease: "power3.out" 
-      })
-      .from(".hero-title", { 
-        y: 50, 
-        opacity: 0, 
-        duration: 1, 
-        stagger: 0.2,
-        ease: "power3.out" 
-      }, "-=0.4")
-      .from(".hero-desc", { 
-        y: 30, 
-        opacity: 0, 
-        duration: 0.8, 
-        ease: "power3.out" 
-      }, "-=0.6")
-      .from(".hero-cta", { 
-        y: 20, 
-        opacity: 0, 
-        duration: 0.8, 
-        stagger: 0.1,
-        ease: "power3.out" 
-      }, "-=0.6");
-
-      // Glitch effect trigger on load
-      gsap.to(textRef.current, {
-        keyframes: [
-          { x: 0 },
-          { x: -2, y: 2 },
-          { x: 2, y: -2 },
-          { x: 0, y: 0 }
-        ],
-        duration: 0.2,
-        repeat: 5,
-        yoyo: true,
-        ease: "none",
-        delay: 1.5
-      });
-
+      if (desktopRef.current) {
+        tl.fromTo(desktopRef.current,
+          { opacity: 0, rotateY: -30, x: 100 },
+          { opacity: 1, rotateY: -15, x: 0, duration: 1.2, ease: "power3.out" },
+          "-=0.8"
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      <ParticleBackground />
-      
-      {/* Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 opacity-20 pointer-events-none" />
-
-      <div className="container relative z-10 px-4 text-center">
-        {/* Badge */}
-        <div className="hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-primary/10 border border-blue-primary/20 text-blue-primary text-sm font-mono mb-8 backdrop-blur-sm">
-          <Code2 size={14} />
-          <span>Full Stack Developer</span>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
-          <span className="block hero-title text-white">Olá, eu sou</span>
-          <span 
-            ref={textRef}
-            className="block hero-title text-transparent bg-clip-text bg-gradient-to-r from-blue-primary via-white to-gold-primary tracking-tighter"
-          >
-            KAYZZ
-          </span>
-        </h1>
-
-        {/* Slogan */}
-        <h2 className="hero-desc text-xl md:text-2xl text-gray-muted max-w-2xl mx-auto mb-10 font-light">
-          "Tecnologia que transforma. <span className="text-gray-text font-medium">Experiência que entrega.</span>"
-        </h2>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button className="hero-cta w-full sm:w-auto btn-glow">
-            <span className="flex items-center gap-2">
-              Ver Projetos <ArrowRight size={18} />
-            </span>
-          </Button>
-          <Button variant="outline" className="hero-cta w-full sm:w-auto">
-            Falar Comigo
-          </Button>
-        </div>
-
-        {/* Stats */}
-        <div className="hero-cta mt-20 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-3xl mx-auto border-t border-white/10 pt-8">
-          <div className="flex flex-col">
-            <span className="text-3xl font-bold text-white">247+</span>
-            <span className="text-sm text-gray-muted">Projetos</span>
+    <div ref={containerRef} className="container mx-auto px-6 h-full flex items-center relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+        
+        {/* Left: Text Content */}
+        <div ref={textRef} className="space-y-6 opacity-0">
+          <div className="flex items-center gap-2 text-blue-primary font-mono text-sm tracking-widest uppercase">
+            <span className="w-8 h-[1px] bg-blue-primary"></span>
+            Engenheiro de Software Front-End
           </div>
-          <div className="flex flex-col">
-            <span className="text-3xl font-bold text-white">8+</span>
-            <span className="text-sm text-gray-muted">Anos Exp.</span>
-          </div>
-          <div className="col-span-2 md:col-span-1 flex flex-col">
-            <span className="text-3xl font-bold text-gold-primary">100%</span>
-            <span className="text-sm text-gray-muted">Satisfação</span>
+          
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+            Criando <br/>
+            Experiências <span className="text-gradient">Digitais.</span>
+          </h1>
+          
+          <p className="text-gray-400 text-lg max-w-lg leading-relaxed">
+            Desenvolvo interfaces elegantes, resolvo desafios complexos de design e transformo ideias em realidade através de código limpo e escalável.
+          </p>
+
+          <div className="pt-4 flex gap-4">
+            <Button onClick={scrollToAbout} className="group">
+              Sobre Mim
+              <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+            </Button>
           </div>
         </div>
+
+        {/* Right: 3D Desktop Simulation */}
+        <div ref={desktopRef} className="hidden lg:flex justify-center items-center perspective-container opacity-0">
+          <div className="desktop-3d-container w-full max-w-2xl">
+            {/* Monitor Frame */}
+            <div className="monitor-frame aspect-video relative bg-gray-900 rounded-lg border border-gray-800 shadow-2xl overflow-hidden">
+              {/* Screen Content - Abstract Code/UI */}
+              <div className="screen-content w-full h-full bg-[#0a0a0a] relative">
+                
+                {/* Header Bar */}
+                <div className="h-6 bg-[#1a1a1a] flex items-center px-3 gap-1.5 border-b border-white/5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                </div>
+
+                {/* Main Content Area */}
+                <div className="p-6 grid grid-cols-12 gap-4 h-full">
+                  {/* Sidebar */}
+                  <div className="col-span-3 h-3/4 bg-white/5 rounded animate-pulse"></div>
+                  
+                  {/* Main Panel */}
+                  <div className="col-span-9 space-y-4">
+                    <div className="h-32 bg-gradient-to-br from-blue-primary/20 to-purple-600/20 rounded border border-blue-primary/10 relative overflow-hidden group">
+                      <div className="absolute inset-0 bg-blue-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                       <div className="h-24 bg-white/5 rounded"></div>
+                       <div className="h-24 bg-white/5 rounded"></div>
+                    </div>
+                    {/* Simulated Code Lines */}
+                    <div className="space-y-2 mt-4 font-mono text-xs text-gray-500 opacity-50">
+                      <p>&lt;Component prop="value" /&gt;</p>
+                      <p className="pl-4">const data = await fetch('/api/user');</p>
+                      <p className="pl-4">return data.json();</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating Elements on Screen */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-blue-primary/20 rounded-full blur-xl animate-pulse"></div>
+              </div>
+            </div>
+            {/* Monitor Stand */}
+            <div className="w-32 h-16 bg-gray-800 mx-auto -mt-2 relative z-[-1] transform perspective(500px) rotateX(40deg)"></div>
+            <div className="w-48 h-4 bg-gray-800 mx-auto rounded-full shadow-lg"></div>
+          </div>
+        </div>
+
       </div>
-    </section>
+    </div>
   );
 };
 
