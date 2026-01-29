@@ -8,90 +8,36 @@
   --background-end-rgb: 10, 10, 10;
 }
 
+html {
+  /* Native smooth scrolling for anchor links */
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: #050505; /* Unified deep black background */
-  overflow: hidden; /* Hide body scroll, main container handles it */
+  background: #050505;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
 }
 
-/* Scroll Snap Container */
-.snap-container {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  perspective: 1000px;
-}
-
-.snap-section {
-  height: 100vh;
-  width: 100vw;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* 3D Desktop Simulation */
-.desktop-3d-container {
-  transform-style: preserve-3d;
-  transform: perspective(2000px) rotateY(-15deg) rotateX(5deg);
-  transition: transform 0.5s ease-out;
-}
-
-.desktop-3d-container:hover {
-  transform: perspective(2000px) rotateY(-5deg) rotateX(0deg);
-}
-
-.monitor-frame {
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 
-    -20px 20px 60px rgba(0,0,0,0.5),
-    inset 0 0 20px rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.screen-content {
-  background: #000;
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-}
-
-.code-overlay {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(4px);
-}
-
-/* Orbit Animation for Skills */
-@keyframes orbit {
-  0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-  100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
-}
-
-@keyframes orbit-reverse {
-  0% { transform: rotate(360deg) translateX(220px) rotate(-360deg); }
-  100% { transform: rotate(0deg) translateX(220px) rotate(0deg); }
-}
-
-.orbit-item {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -20px;
-  margin-left: -20px;
-}
-
-/* Custom Scrollbar */
+/* Custom Scrollbar - Minimalist */
 ::-webkit-scrollbar {
-  width: 0px; /* Hide scrollbar for immersive feel */
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f1f1f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
 }
 
 /* Text Gradient */
@@ -108,4 +54,13 @@ body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Utilities */
+.section-min-height {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }

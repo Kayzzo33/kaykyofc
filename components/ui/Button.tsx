@@ -12,26 +12,55 @@ const Button = ({ className, variant = 'primary', children, ...props }: ButtonPr
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const button = buttonRef.current;
-    if (!button) return;
+    // Definitive Safety Check: If ref is null, do absolutely nothing
+    if (!buttonRef.current) return;
 
-    // Use quickTo for better performance and simpler state management
-    // This avoids creating new tweens on every mousemove which can cause race conditions
-    const xTo = gsap.quickTo(button, "x", { duration: 0.3, ease: "power2.out" });
-    const yTo = gsap.quickTo(button, "y", { duration: 0.3, ease: "power2.out" });
+    const button = buttonRef.current;
+
+    // Initialize state safely
+    try {
+      gsap.set(button, { x: 0, y: 0 });
+    } catch (e) {
+      // If GSAP fails to set, simply return to avoid attaching listeners to a broken state
+      return;
+    }
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Runtime Safety Check: Ensure element is still in DOM
+      if (!button || !document.contains(button)) return;
+      
       const rect = button.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
       
-      xTo(x * 0.2);
-      yTo(y * 0.2);
+      // Wrap in try-catch to prevent page crash if GSAP context is lost
+      try {
+        gsap.to(button, {
+          x: x * 0.2,
+          y: y * 0.2,
+          duration: 0.3,
+          ease: "power2.out",
+          overwrite: true
+        });
+      } catch (err) {
+        // Silent failure is better than app crash
+      }
     };
 
     const handleMouseLeave = () => {
-      xTo(0);
-      yTo(0);
+      if (!button || !document.contains(button)) return;
+
+      try {
+        gsap.to(button, {
+          x: 0,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+          overwrite: true
+        });
+      } catch (err) {
+        // Silent failure
+      }
     };
 
     button.addEventListener('mousemove', handleMouseMove);
@@ -40,8 +69,11 @@ const Button = ({ className, variant = 'primary', children, ...props }: ButtonPr
     return () => {
       button.removeEventListener('mousemove', handleMouseMove);
       button.removeEventListener('mouseleave', handleMouseLeave);
-      // Ensure any active animations are killed immediately on unmount
-      gsap.killTweensOf(button);
+      try {
+        gsap.killTweensOf(button);
+      } catch (e) {
+        // Ignore cleanup errors
+      }
     };
   }, []);
 

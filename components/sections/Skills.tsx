@@ -22,7 +22,7 @@ const Skills = () => {
     <div className="container mx-auto px-6 h-full flex flex-col justify-center items-center relative z-10">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-4">
-          Ferramentas que <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-primary to-purple-500">Amo</span>
+          Ferramentas que <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-primary to-purple-500">Domino</span>
         </h2>
         <p className="text-gray-400 text-lg">O stack que impulsiona minhas criações.</p>
       </div>

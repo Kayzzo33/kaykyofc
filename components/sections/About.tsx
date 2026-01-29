@@ -8,15 +8,16 @@ const About = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Strict null check for scope
     if (!containerRef.current) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Use selector string directly so gsap.context handles scoping safely
-      // This prevents passing undefined/empty arrays to fromTo
+      // Safe animation definition
+      // Removed 'scroller' property to let it use default window/lenis scrolling
       gsap.fromTo(".about-content", 
-        { y: 30, opacity: 0 },
+        { y: 50, opacity: 0 },
         { 
           y: 0, 
           opacity: 1, 
@@ -24,8 +25,8 @@ const About = () => {
           stagger: 0.2,
           scrollTrigger: {
             trigger: containerRef.current,
-            scroller: ".snap-container", // Matches the class in page.tsx/globals.css
-            start: "top center",
+            start: "top 80%", // Adjusted for better visibility on scroll
+            toggleActions: "play none none reverse"
           }
         }
       );

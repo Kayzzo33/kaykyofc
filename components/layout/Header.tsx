@@ -1,24 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import Button from '@/components/ui/Button';
 
 const Header = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
   // Function to handle scroll to section
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
-    const container = document.querySelector('.snap-container');
     
-    if (element && container) {
-      container.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-      });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileOpen(false);
     }
   };

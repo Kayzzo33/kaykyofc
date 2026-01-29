@@ -7,31 +7,28 @@ import ParticleBackground from '@/components/animations/ParticleBackground';
 
 export default function Home() {
   return (
-    <main className="snap-container relative">
+    <main className="relative w-full overflow-x-hidden">
       <div className="fixed inset-0 z-0 pointer-events-none">
          <ParticleBackground />
       </div>
 
-      <section id="home" className="snap-section">
+      <section id="home" className="section-min-height py-20">
         <Hero />
       </section>
 
-      <section id="about" className="snap-section bg-gradient-to-b from-transparent to-black/20">
+      <section id="about" className="section-min-height py-20 bg-gradient-to-b from-transparent to-black/20">
         <About />
       </section>
 
-      <section id="skills" className="snap-section">
+      <section id="skills" className="section-min-height py-20">
         <Skills />
       </section>
 
-      <section id="projects" className="snap-section">
-        <div className="h-full w-full overflow-y-auto">
-             {/* Wraps projects to allow internal scroll if content is too long, or fits in 100vh */}
-            <Projects />
-        </div>
+      <section id="projects" className="section-min-height py-20">
+        <Projects />
       </section>
 
-      <section id="contact" className="snap-section">
+      <section id="contact" className="section-min-height py-20">
         <Contact />
       </section>
     </main>
