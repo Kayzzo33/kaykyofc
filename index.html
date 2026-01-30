@@ -1,86 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kayzz Portfolio</title>
-    <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react/": "https://esm.sh/react@18.2.0/",
-    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.16?external=react,react-dom,three",
-    "@react-three/drei": "https://esm.sh/@react-three/drei@9.99.0?external=react,react-dom,three,@react-three/fiber",
-    "three": "https://esm.sh/three@0.160.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.330.0?external=react",
-    "firebase/app": "https://esm.sh/firebase@10.8.0/app",
-    "firebase/firestore": "https://esm.sh/firebase@10.8.0/firestore",
-    "firebase/auth": "https://esm.sh/firebase@10.8.0/auth",
-    "firebase/storage": "https://esm.sh/firebase@10.8.0/storage",
-    "firebase/": "https://esm.sh/firebase@10.8.0/",
-    "clsx": "https://esm.sh/clsx@2.1.0",
-    "tailwind-merge": "https://esm.sh/tailwind-merge@2.2.1",
-    "gsap": "https://esm.sh/gsap@3.12.5",
-    "gsap/": "https://esm.sh/gsap@3.12.5/",
-    "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger?external=gsap",
-    "tailwindcss": "https://esm.sh/tailwindcss@3.4.1",
-    "tailwindcss/": "https://esm.sh/tailwindcss@3.4.1/"
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "three": "https://esm.sh/three@^0.182.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "clsx": "https://esm.sh/clsx@^2.1.1",
+    "firebase/": "https://esm.sh/firebase@^12.8.0/",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.4.0",
+    "gsap/": "https://esm.sh/gsap@^3.14.2/",
+    "gsap": "https://esm.sh/gsap@^3.14.2",
+    "tailwindcss": "https://esm.sh/tailwindcss@^4.1.18",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.5.0",
+    "next/": "https://esm.sh/next@^16.1.6/",
+    "next": "https://esm.sh/next@^16.1.6"
   }
 }
 </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              bg: {
-                primary: "#0a0a0a",
-                secondary: "#141414",
-                tertiary: "#1f1f1f",
-              },
-              blue: {
-                primary: "#0ea5e9",
-                glow: "#38bdf8",
-                dark: "#0284c7",
-              },
-              gold: {
-                primary: "#fbbf24",
-                light: "#fde047",
-                dark: "#d97706",
-              },
-              gray: {
-                text: "#e5e7eb",
-                muted: "#9ca3af",
-              }
-            },
-            backgroundImage: {
-              'gradient-primary': 'linear-gradient(135deg, #0ea5e9 0%, #fbbf24 100%)',
-              'gradient-glow': 'radial-gradient(circle, rgba(14,165,233,0.3) 0%, rgba(251,191,36,0.1) 100%)',
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
-            },
-          }
-        }
-      }
-    </script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
-      
-      body {
-        background-color: #0a0a0a;
-        color: #e5e7eb;
-      }
-    </style>
-</head>
-<body>
-    <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
-</body>
-</html>
+<!-- 
+  ESTE ARQUIVO FOI DESATIVADO.
+  O Next.js gera o HTML automaticamente baseado no app/layout.tsx.
+  Carregar scripts aqui causa conflito de versão do React (Error #418).
+-->

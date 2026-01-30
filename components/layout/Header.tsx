@@ -1,10 +1,30 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  useEffect(() => {
+    // Console Easter Egg movido para cá (Client Component)
+    console.log(`
+      %c
+      ██╗  ██╗ █████╗ ██╗   ██╗███████╗███████╗
+      ██║ ██╔╝██╔══██╗╚██╗ ██╔╝╚══███╔╝╚══███╔╝
+      █████╔╝ ███████║ ╚████╔╝   ███╔╝   ███╔╝ 
+      ██╔═██╗ ██╔══██║  ╚██╔╝   ███╔╝   ███╔╝  
+      ██║  ██╗██║  ██║   ██║   ███████╗███████╗
+      ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝
+      
+      %c👨‍💻 Developed by Kayzz
+      %cNeed a premium website? Let's talk.
+      `,
+      'color: #0ea5e9; font-family: monospace; font-weight: bold;',
+      'color: #fbbf24; font-size: 14px; font-weight: bold; margin-top: 10px;',
+      'color: #e5e7eb; font-size: 12px;'
+    );
+  }, []);
 
   // Function to handle scroll to section
   const scrollToSection = (id: string) => {
