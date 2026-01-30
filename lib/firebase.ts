@@ -17,14 +17,22 @@ const firebaseConfig = {
 
 // Initialize Firebase only if it hasn't been initialized and config is present
 let app;
+let db: any = {};
+let auth: any = {};
+let storage: any = {};
+
 try {
-  app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+  // Verificação de segurança: Se não houver API Key (Build time), não inicialize para evitar erro.
+  if (firebaseConfig.apiKey) {
+    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    db = getFirestore(app);
+    auth = getAuth(app);
+    storage = getStorage(app);
+  } else {
+    console.warn("Firebase Config missing (Build Time or Missing Envs). Using mock objects.");
+  }
 } catch (e) {
-  console.warn("Firebase not initialized: Missing config");
-  // Create a dummy app object if init fails to prevent crashes in dependent components
-  // Real implementation would handle this better, but for portfolio preview this is sufficient
+  console.warn("Firebase initialization failed:", e);
 }
 
-export const db = app ? getFirestore(app) : {} as any;
-export const auth = app ? getAuth(app) : {} as any;
-export const storage = app ? getStorage(app) : {} as any;
+export { db, auth, storage };
