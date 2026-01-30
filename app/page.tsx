@@ -7,28 +7,28 @@ import ParticleBackground from '@/components/animations/ParticleBackground';
 
 export default function Home() {
   return (
-    <main className="relative w-full overflow-x-hidden">
+    <main className="relative w-full overflow-x-hidden flex-auto flex flex-col">
       <div className="fixed inset-0 z-0 pointer-events-none">
          <ParticleBackground />
       </div>
 
-      <section id="home" className="section-min-height py-20">
+      <section id="home" className="section-min-height">
         <Hero />
       </section>
 
-      <section id="about" className="section-min-height py-20 bg-gradient-to-b from-transparent to-black/20">
+      <section id="about" className="section-min-height bg-gradient-to-b from-transparent to-black/20">
         <About />
       </section>
 
-      <section id="skills" className="section-min-height py-20">
+      <section id="skills" className="section-min-height">
         <Skills />
       </section>
 
-      <section id="projects" className="section-min-height py-20">
+      <section id="projects" className="section-min-height">
         <Projects />
       </section>
 
-      <section id="contact" className="section-min-height py-20">
+      <section id="contact" className="section-min-height">
         <Contact />
       </section>
     </main>
