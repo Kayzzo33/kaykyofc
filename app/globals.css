@@ -232,13 +232,13 @@ body {
   50% { transform: translateY(-8px) rotateX(45deg); }
 }
 
-/* CAFE - Canto Inferior Esquerdo */
+/* CAFE - Canto Inferior DIREITO (Corrigido) */
 .hero-coffee {
   position: absolute;
   width: 70px;
   height: 80px;
   animation: coffeeFloat 6s ease-in-out infinite;
-  left: 0px; 
+  right: -20px; /* Mudado de left para right */
   bottom: 0px;
   z-index: 40;
 }
@@ -247,20 +247,27 @@ body {
   50% { transform: translateY(-10px) rotate(-5deg); }
 }
 
-/* CANETA - Canto Inferior Direito (Bem longe do caderno) */
+/* Fumaça do Café (Adicionado) */
+@keyframes steamRise {
+  0% { opacity: 0; transform: translateY(0) scale(1); }
+  50% { opacity: 0.7; transform: translateY(-10px) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-25px) scale(1.5); }
+}
+
+/* CANETA - Canto Inferior ESQUERDO (Corrigido) */
 .hero-pen {
   position: absolute;
   width: 10px;
   height: 100px;
-  right: 20px;
+  left: -20px; /* Mudado de right para left */
   bottom: 0px;
-  transform: rotate(-25deg);
+  transform: rotate(25deg); /* Invertido o angulo para combinar com o lado esquerdo */
   animation: penFloat 5.5s ease-in-out infinite;
   z-index: 40;
 }
 @keyframes penFloat {
-  0%, 100% { transform: rotate(-25deg) translateY(0); }
-  50% { transform: rotate(-25deg) translateY(-8px); }
+  0%, 100% { transform: rotate(25deg) translateY(0); }
+  50% { transform: rotate(25deg) translateY(-8px); }
 }
 
 /* CADERNO - Canto Superior Esquerdo (Em cima, separado) */

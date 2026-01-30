@@ -86,15 +86,16 @@ const Skills = () => {
           const deltaY = itemCenterY - mouseY;
           const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
           
-          const repulsionRadius = 150;
+          const repulsionRadius = 200; // Increased radius for better effect
           
           if (distance < repulsionRadius && distance > 0) {
             const force = (repulsionRadius - distance) / repulsionRadius;
-            const pushDistance = force * 80;
+            const pushDistance = force * 100; // Increased push distance
             
             const pushX = (deltaX / distance) * pushDistance;
             const pushY = (deltaY / distance) * pushDistance;
             
+            // Apply transform to the outer container, leaving internal animation intact
             item.style.transform = `translate(${pushX}px, ${pushY}px)`;
             item.style.transition = 'transform 0.1s ease-out';
           } else {
@@ -146,38 +147,52 @@ const Skills = () => {
                 ref={el => { itemsRef.current[index] = el; }}
                 data-name={tool.name}
                 className={`
-                  tool-item absolute bg-[#1a1a1a] border border-white/10 rounded-full flex items-center justify-center cursor-pointer
+                  tool-item absolute cursor-pointer
                   transition-transform will-change-transform
-                  group
-                  animate-float
-                  shadow-[0_10px_40px_rgba(0,0,0,0.3)]
-                  hover:z-50 hover:shadow-[0_20px_60px_rgba(14,165,233,0.4)]
-                  ${tool.size === 'large' ? 'w-24 h-24 lg:w-32 lg:h-32' : tool.size === 'medium' ? 'w-20 h-20 lg:w-24 lg:h-24' : 'w-14 h-14 lg:w-20 lg:h-20'}
+                  z-10
                 `}
                 style={{
                   top: tool.top,
                   left: tool.left,
-                  animationDelay: `${delay}s`,
-                  animationDuration: `${duration}s`
                 }}
               >
-                <div className="relative w-[60%] h-[60%]">
-                    <img 
-                        src={tool.img} 
-                        alt={tool.name}
-                        className="w-full h-full object-contain"
-                    />
-                </div>
-                {/* Tooltip replacement for ::after */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-40px] opacity-0 group-hover:opacity-100 group-hover:bottom-[-50px] transition-all duration-300 bg-black/90 text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap pointer-events-none border border-white/10 backdrop-blur-sm z-50">
-                  {tool.name}
+                {/* 
+                  SEPARAÇÃO CRÍTICA:
+                  Outer Div (acima): Controlado pelo Javascript (Repulsão).
+                  Inner Div (abaixo): Controlado pelo CSS (Animação de flutuar).
+                  Isso evita conflito de 'transform'.
+                */}
+                <div 
+                  className={`
+                    relative bg-[#1a1a1a] border border-white/10 rounded-full flex items-center justify-center
+                    group animate-float
+                    shadow-[0_10px_40px_rgba(0,0,0,0.3)]
+                    hover:z-50 hover:shadow-[0_20px_60px_rgba(14,165,233,0.4)]
+                    ${tool.size === 'large' ? 'w-24 h-24 lg:w-32 lg:h-32' : tool.size === 'medium' ? 'w-20 h-20 lg:w-24 lg:h-24' : 'w-14 h-14 lg:w-20 lg:h-20'}
+                  `}
+                  style={{
+                    animationDelay: `${delay}s`,
+                    animationDuration: `${duration}s`
+                  }}
+                >
+                    <div className="relative w-[60%] h-[60%]">
+                        <img 
+                            src={tool.img} 
+                            alt={tool.name}
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+                    {/* Tooltip */}
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-[-40px] opacity-0 group-hover:opacity-100 group-hover:bottom-[-50px] transition-all duration-300 bg-black/90 text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap pointer-events-none border border-white/10 backdrop-blur-sm z-50">
+                      {tool.name}
+                    </div>
                 </div>
               </div>
             );
           })}
         </div>
         
-        {/* Mobile View (Grid instead of floating for better UX on small screens) */}
+        {/* Mobile View */}
         <div className="md:hidden grid grid-cols-3 gap-4 w-full">
             {tools.map((tool, index) => (
                 <div key={index} className="flex flex-col items-center justify-center p-4 bg-[#1a1a1a] rounded-xl border border-white/5">

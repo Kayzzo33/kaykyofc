@@ -2,7 +2,6 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { Monitor, Smartphone, Tablet, ChevronLeft, X } from 'lucide-react';
-import Button from '@/components/ui/Button';
 
 const projects = [
   {
@@ -90,15 +89,17 @@ const Projects = () => {
   const [device, setDevice] = useState<DeviceType>('desktop');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Intersection Observer for Section Animation
+  // Intersection Observer for Lazy Load
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // Opcional: Desconectar o observador após carregar para poupar recursos
+          // observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } // 10% da seção visível para disparar
     );
 
     if (sectionRef.current) {
@@ -112,7 +113,7 @@ const Projects = () => {
     };
   }, []);
 
-  // Handle Modal Open/Close Logic (Scroll lock & ESC key)
+  // Handle Modal Open/Close Logic
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = 'hidden';
@@ -132,19 +133,19 @@ const Projects = () => {
   const openModal = (project: typeof projects[0]) => {
     setSelectedProject(project);
     setIsModalOpen(true);
-    setDevice('desktop'); // Reset to desktop on open
+    setDevice('desktop'); 
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300); // Wait for fade out
+    setTimeout(() => setSelectedProject(null), 300); 
   };
 
   return (
     <>
       <div ref={sectionRef} className="container mx-auto px-6 min-h-full flex flex-col justify-center py-20 relative z-10">
         
-        {/* Header - Valkeer Style Centered */}
+        {/* Header */}
         <div className={`text-center mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest uppercase">
               <span className="text-white/20 font-thin">ARTE</span>{" "}
@@ -155,7 +156,7 @@ const Projects = () => {
            </h2>
         </div>
 
-        {/* Grid de Projetos - Pure Cards */}
+        {/* Grid de Projetos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div 
@@ -169,13 +170,17 @@ const Projects = () => {
               `}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Image Container - Full Card */}
-              <img 
-                src={project.image} 
-                alt={project.title}
-                loading="lazy"
-                className="object-cover object-top w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
+              {/* Image Container - True Lazy Load Logic */}
+              {isVisible ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="object-cover object-top w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+              ) : (
+                  // Skeleton Placeholder while hidden/loading
+                  <div className="w-full h-full bg-[#141414] animate-pulse"></div>
+              )}
               
               {/* Overlay Hover Effect */}
               <div className="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px]">
@@ -194,7 +199,6 @@ const Projects = () => {
             
             {/* Modal Header */}
             <div className="h-[70px] bg-[#1a1a1a] border-b border-white/10 flex items-center justify-between px-4 md:px-8">
-                {/* Back Button */}
                 <button 
                     onClick={closeModal}
                     className="flex items-center gap-2 text-gray-300 hover:text-blue-primary transition-colors group"
@@ -205,40 +209,18 @@ const Projects = () => {
                     <span className="text-sm font-medium hidden sm:inline">Voltar para Projetos</span>
                 </button>
 
-                {/* Device Selector */}
                 <div className="flex items-center gap-2 bg-[#0a0a0a] p-1 rounded-lg border border-white/5">
-                    <button 
-                        onClick={() => setDevice('desktop')}
-                        className={`p-2 rounded transition-all duration-300 ${device === 'desktop' ? 'bg-blue-primary text-black shadow-lg shadow-blue-500/20' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
-                        title="Desktop View"
-                    >
-                        <Monitor size={20} />
-                    </button>
-                    <button 
-                        onClick={() => setDevice('tablet')}
-                        className={`p-2 rounded transition-all duration-300 ${device === 'tablet' ? 'bg-blue-primary text-black shadow-lg shadow-blue-500/20' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
-                        title="Tablet View"
-                    >
-                        <Tablet size={20} />
-                    </button>
-                    <button 
-                        onClick={() => setDevice('mobile')}
-                        className={`p-2 rounded transition-all duration-300 ${device === 'mobile' ? 'bg-blue-primary text-black shadow-lg shadow-blue-500/20' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
-                        title="Mobile View"
-                    >
-                        <Smartphone size={20} />
-                    </button>
+                    <button onClick={() => setDevice('desktop')} className={`p-2 rounded transition-all duration-300 ${device === 'desktop' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}><Monitor size={20} /></button>
+                    <button onClick={() => setDevice('tablet')} className={`p-2 rounded transition-all duration-300 ${device === 'tablet' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}><Tablet size={20} /></button>
+                    <button onClick={() => setDevice('mobile')} className={`p-2 rounded transition-all duration-300 ${device === 'mobile' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}><Smartphone size={20} /></button>
                 </div>
 
-                {/* Close Button Only */}
                 <div className="flex items-center gap-4">
-                    <button onClick={closeModal} className="text-white hover:text-red-500 transition-colors p-2">
-                        <X size={24} />
-                    </button>
+                    <button onClick={closeModal} className="text-white hover:text-red-500 transition-colors p-2"><X size={24} /></button>
                 </div>
             </div>
 
-            {/* Modal Body / Iframe Container */}
+            {/* Modal Body */}
             <div className="h-[calc(100vh-70px)] w-full flex items-center justify-center p-4 md:p-8 overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1a1a1a] to-[#0a0a0a]">
                 <div 
                     className={`
@@ -248,19 +230,12 @@ const Projects = () => {
                         ${device === 'mobile' ? 'w-[375px] h-[667px] rounded-[30px] border-[10px] border-[#2a2a2a]' : ''}
                     `}
                 >
-                    {/* Iframe */}
                     <iframe 
                         src={selectedProject.url} 
                         title={`Preview of ${selectedProject.title}`}
                         className="w-full h-full border-0 bg-white"
                         sandbox="allow-scripts allow-same-origin" 
                     />
-                    
-                    {/* Fallback visual */}
-                    <div className="absolute inset-0 -z-10 flex flex-col items-center justify-center bg-gray-100 text-gray-800">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-primary mb-4"></div>
-                        <p>Carregando Preview...</p>
-                    </div>
                 </div>
             </div>
 
