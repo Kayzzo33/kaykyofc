@@ -8,19 +8,27 @@
   --background-end-rgb: 10, 10, 10;
 }
 
+/* Ensure full height for sticky footer */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #050505; /* Fallback fundamental */
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #050505;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden;
-  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Scrollbar Customization */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -38,6 +46,7 @@ body {
   background: #0ea5e9;
 }
 
+/* Utilities */
 .text-gradient {
   background: linear-gradient(135deg, #0ea5e9 0%, #a855f7 100%);
   -webkit-background-clip: text;
@@ -60,8 +69,13 @@ body {
   overflow: hidden;
 }
 
-/* --- HERO 3D SCENE STYLES --- */
+/* Helper to hide content initially for GSAP to reveal */
+.invisible-on-load {
+  visibility: hidden; 
+}
 
+/* --- HERO 3D SCENE STYLES --- */
+/* (Mantivemos os estilos 3D intactos pois funcionam bem) */
 .hero-workspace {
   position: relative;
   width: 100%;
@@ -118,7 +132,6 @@ body {
 .hero-code-symbol {
   font-size: 100px;
   font-weight: 700;
-  /* Changed from Purple to Blue (#0ea5e9) */
   color: rgba(14, 165, 233, 0.4);
   text-shadow: 
       0 0 20px rgba(14, 165, 233, 0.8),
@@ -194,7 +207,6 @@ body {
   50% { transform: translate(-12px, 8px) rotateX(2deg) rotateY(2deg); }
 }
 
-/* Desk Items */
 .hero-desk-items {
   position: absolute;
   bottom: 0px;
@@ -231,7 +243,6 @@ body {
 
 .key-active {
   transform: translateY(2px); 
-  /* Changed from Purple to Blue (#0ea5e9) */
   background: rgba(14, 165, 233, 0.4) !important;
   box-shadow: 0 0 15px rgba(14, 165, 233, 0.6);
 }
@@ -250,14 +261,11 @@ body {
   50% { transform: translateY(-8px) rotateX(45deg); }
 }
 
-/* Responsive Coffee */
 .hero-coffee {
   position: absolute;
   width: 70px;
   height: 80px;
   animation: coffeeFloat 6s ease-in-out infinite;
-  
-  /* Mobile Default */
   right: -50px;
   bottom: 40px;
 }
@@ -273,15 +281,12 @@ body {
   50% { transform: translateY(-10px) rotate(-5deg); }
 }
 
-/* Responsive Pen */
 .hero-pen {
   position: absolute;
   width: 10px;
   height: 100px;
   animation: penFloat 5.5s ease-in-out infinite;
   transform: rotate(-25deg);
-
-  /* Mobile Default */
   left: -50px;
   bottom: 40px;
 }
@@ -297,7 +302,6 @@ body {
   50% { transform: rotate(-25deg) translateY(-8px); }
 }
 
-/* Responsive Notebook / Paper */
 .hero-notebook {
   position: absolute;
   width: 80px;
@@ -305,8 +309,6 @@ body {
   background: linear-gradient(145deg, #f8f8f8, #e5e5e5);
   border-radius: 5px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  
-  /* Mobile Default - Stick Note Position above Monitor */
   top: -60px;
   left: 50%;
   transform: translateX(-50%) rotate(3deg);
@@ -315,7 +317,6 @@ body {
 
 @media (min-width: 1024px) {
   .hero-notebook {
-    /* Desktop - Notebook Position bottom left */
     top: auto;
     bottom: 10px;
     left: 80px;
@@ -334,7 +335,6 @@ body {
   50% { transform: translateX(-50%) rotate(3deg) translateY(-8px); }
 }
 
-/* Typing Animations */
 .code-line {
   margin-bottom: 4px;
   animation: typeCode 0.5s ease-out forwards;

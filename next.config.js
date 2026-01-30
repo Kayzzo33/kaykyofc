@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone', // Otimização crítica para Vercel
   images: {
     remotePatterns: [
       {
@@ -24,16 +25,11 @@ const nextConfig = {
       }
     ],
     formats: ['image/avif', 'image/webp'],
-    unoptimized: true, // Garante compatibilidade com Vercel Free Tier
+    unoptimized: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // Desabilitando optimizeCss pois causa timeouts na Vercel frequentemente
-  experimental: {
-    optimizeCss: false, 
-  },
-  // Garante que o build termine mesmo com warnings menores
   eslint: {
     ignoreDuringBuilds: true,
   },
