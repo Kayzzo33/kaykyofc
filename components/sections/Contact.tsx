@@ -26,7 +26,7 @@ const Contact = () => {
     // Simulating a brief loading state for UX before redirecting
     setTimeout(() => {
       // Formatação da mensagem para o WhatsApp
-      const phoneNumber = "5511999999999"; // ALTERE AQUI PARA SEU NÚMERO (Ex: 5511999999999)
+      const phoneNumber = "5573988027104"; 
       
       const message = `*Olá Kayzz! Vim através do seu portfólio.*\n\n` +
                       `*Nome:* ${formData.name}\n` +
@@ -72,7 +72,7 @@ const Contact = () => {
             <div className="flex items-center gap-2 pt-2">
               <span className="text-gray-400 text-lg font-light">Você também pode me seguir no</span>
               <a 
-                href="https://instagram.com" // Coloque seu link do Instagram aqui
+                href="https://www.instagram.com/_xkayky.s/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500 font-semibold hover:opacity-80 transition-opacity"
@@ -86,7 +86,7 @@ const Contact = () => {
           <div className="pt-4">
             <div className="inline-block p-4 bg-white/5 rounded-lg backdrop-blur-sm border border-white/5">
               <p className="text-sm text-gray-400 mb-1">Email Direto</p>
-              <p className="text-xl text-white font-mono">hello@kayzz.dev</p>
+              <p className="text-xl text-white font-mono">kaykysilva01.crf@gmail.com</p>
             </div>
           </div>
         </div>
