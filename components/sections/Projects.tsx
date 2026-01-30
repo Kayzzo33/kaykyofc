@@ -89,17 +89,21 @@ const Projects = () => {
   const [device, setDevice] = useState<DeviceType>('desktop');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Intersection Observer for Lazy Load
+  // Intersection Observer for Lazy Load com Fallback
   useEffect(() => {
+    // Fallback de segurança: Garante que o conteúdo apareça mesmo se o observer falhar
+    const fallbackTimeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 500);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Opcional: Desconectar o observador após carregar para poupar recursos
-          // observer.unobserve(entry.target);
+          clearTimeout(fallbackTimeout);
         }
       },
-      { threshold: 0.1 } // 10% da seção visível para disparar
+      { threshold: 0.05 } 
     );
 
     if (sectionRef.current) {
@@ -107,6 +111,7 @@ const Projects = () => {
     }
 
     return () => {
+      clearTimeout(fallbackTimeout);
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
@@ -145,7 +150,7 @@ const Projects = () => {
     <>
       <div ref={sectionRef} className="container mx-auto px-6 min-h-full flex flex-col justify-center py-20 relative z-10">
         
-        {/* Header */}
+        {/* Header - Opacity controlled by isVisible but renders layout space */}
         <div className={`text-center mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest uppercase">
               <span className="text-white/20 font-thin">ARTE</span>{" "}
