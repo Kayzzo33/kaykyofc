@@ -167,7 +167,7 @@ const Hero = () => {
                           {[
                              { name: 'Sarah Chen', msg: 'Great work!', color: '#27c93f' },
                              { name: 'Mike Ross', msg: 'Meeting at 3pm', color: '#ffbd2e' },
-                             { name: 'Alex Kim', msg: 'Review PR?', color: '#a855f7' }
+                             { name: 'Alex Kim', msg: 'Review PR?', color: '#0ea5e9' }
                           ].map((chat, i) => (
                              <div key={i} className="flex items-center gap-2 p-1.5 bg-white/5 rounded border-l-2" style={{ borderLeftColor: chat.color }}>
                                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: chat.color }}></div>
@@ -234,8 +234,8 @@ const Hero = () => {
                     ))}
                  </div>
                  <div className="hero-mouse">
-                    {/* Scroll Wheel */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-0.5 h-3.5 bg-purple-500/60 rounded animate-pulse"></div>
+                    {/* Scroll Wheel - Changed to Blue */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-0.5 h-3.5 bg-blue-500/60 rounded animate-pulse"></div>
                  </div>
               </div>
 

@@ -56,15 +56,17 @@ const About = () => {
 
         {/* Text Section */}
         <div className="md:col-span-7 space-y-8 about-content opacity-0">
-          <div className="space-y-2">
-            <h3 className="text-blue-primary font-mono tracking-widest text-sm uppercase">Sobre Mim</h3>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Olá, eu sou <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Kayky Ribeiro.</span>
-            </h2>
-            <p className="text-xl font-light text-gray-400">
-              Mas pode me chamar de <span className="text-blue-primary font-semibold">Kayzz</span>.
-            </p>
+          <div className="space-y-4">
+             <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-widest uppercase">
+                <span className="text-white/20 font-thin">SOBRE</span>{" "}
+                <span className="text-white font-thin">&</span>{" "}
+                <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-300">
+                  MIM
+                </span>
+             </h2>
+             <h3 className="text-xl md:text-2xl font-light text-gray-300">
+                Olá, eu sou <span className="text-blue-primary font-semibold">Kayzz</span>.
+             </h3>
           </div>
           
           <div className="space-y-6 text-base md:text-lg text-gray-300 font-light leading-relaxed">

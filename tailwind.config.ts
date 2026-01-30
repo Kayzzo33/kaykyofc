@@ -36,6 +36,17 @@ const config: Config = {
         sans: ['var(--font-inter)', 'sans-serif'],
         mono: ['var(--font-jetbrains)', 'monospace'],
       },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '25%': { transform: 'translate(10px, -15px)' },
+          '50%': { transform: 'translate(-10px, -10px)' },
+          '75%': { transform: 'translate(5px, -20px)' },
+        }
+      },
+      animation: {
+        float: 'float 6s ease-in-out infinite',
+      },
     },
   },
   plugins: [],
