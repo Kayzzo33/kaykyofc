@@ -3,6 +3,7 @@ import Projects from '@/components/sections/Projects';
 import Contact from '@/components/sections/Contact';
 import About from '@/components/sections/About';
 import Skills from '@/components/sections/Skills';
+import Showcase from '@/components/sections/Showcase';
 import ParticleBackground from '@/components/animations/ParticleBackground';
 
 export default function Home() {
@@ -23,6 +24,9 @@ export default function Home() {
       <section id="skills" className="section-min-height">
         <Skills />
       </section>
+
+      {/* Nova sessão adicionada antes de Projects */}
+      <Showcase />
 
       <section id="projects" className="section-min-height">
         <Projects />
