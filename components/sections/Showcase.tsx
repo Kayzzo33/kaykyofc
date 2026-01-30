@@ -20,10 +20,11 @@ const Showcase = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=150%", // Aumenta a distância do scroll para dar tempo da animação acontecer suavemente
+          end: "+=250%", // Aumentado para garantir que a animação termine completamente antes de liberar o scroll
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
         }
       });
 
@@ -34,23 +35,26 @@ const Showcase = () => {
 
       // Animação de Abertura
       tl.to(leftCardRef.current, {
-        xPercent: -140,
-        rotation: -15,
+        xPercent: -160, // Aumentado para afastar mais os cards
+        rotation: -25, // Mais rotação para efeito dramático
         ease: "power2.inOut",
-        duration: 1
+        duration: 1.5
       }, 0)
       .to(rightCardRef.current, {
-        xPercent: 140,
-        rotation: 15,
+        xPercent: 160, // Aumentado para afastar mais os cards
+        rotation: 25, // Mais rotação para efeito dramático
         ease: "power2.inOut",
-        duration: 1
+        duration: 1.5
       }, 0)
       .to(contentRef.current, {
         opacity: 1,
         scale: 1,
-        duration: 0.8,
+        duration: 1,
         ease: "power2.out"
-      }, 0.2); // Texto entra um pouco depois dos cards começarem a abrir
+      }, 0.5); // Texto entra com mais atraso para garantir que os cards já abriram espaço
+
+      // Pequena pausa no final da timeline para garantir que o usuário veja o resultado antes de descer
+      tl.to({}, { duration: 0.5 }); 
 
     }, containerRef);
 
@@ -60,7 +64,9 @@ const Showcase = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-bg-primary"
+      // Z-30 garante que fique ACIMA da sessão de projetos (que é z-10)
+      // BG-[#050505] garante que o fundo seja sólido e igual ao body, evitando transparência
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[#050505] z-30"
     >
       {/* Background Content (Revealed Text) */}
       <div 
