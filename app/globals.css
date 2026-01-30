@@ -8,13 +8,12 @@
   --background-end-rgb: 10, 10, 10;
 }
 
-/* Ensure full height for sticky footer */
+/* FIX CRÍTICO: Removido height: 100% que travava o scroll e causava bug no footer */
 html, body {
-  height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #050505; /* Fallback fundamental */
+  background-color: #050505;
 }
 
 html {
@@ -26,6 +25,9 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh; /* Garante altura mínima sem travar o crescimento */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Scrollbar Customization */
@@ -75,7 +77,6 @@ body {
 }
 
 /* --- HERO 3D SCENE STYLES --- */
-/* (Mantivemos os estilos 3D intactos pois funcionam bem) */
 .hero-workspace {
   position: relative;
   width: 100%;
@@ -302,6 +303,7 @@ body {
   50% { transform: rotate(-25deg) translateY(-8px); }
 }
 
+/* FIX: Movi o notebook para cima para separar da caneta */
 .hero-notebook {
   position: absolute;
   width: 80px;
@@ -317,17 +319,17 @@ body {
 
 @media (min-width: 1024px) {
   .hero-notebook {
-    top: auto;
-    bottom: 10px;
-    left: 80px;
-    transform: rotateX(45deg) rotateZ(-8deg);
+    top: 40px;  /* Posicionado no topo */
+    bottom: auto; /* Remove alinhamento inferior */
+    left: 40px;
+    transform: rotateX(45deg) rotateZ(-12deg);
     animation: notebookFloatDesktop 7s ease-in-out infinite;
   }
 }
 
 @keyframes notebookFloatDesktop {
-  0%, 100% { transform: rotateX(45deg) rotateZ(-8deg) translateY(0); }
-  50% { transform: rotateX(45deg) rotateZ(-8deg) translateY(-8px); }
+  0%, 100% { transform: rotateX(45deg) rotateZ(-12deg) translateY(0); }
+  50% { transform: rotateX(45deg) rotateZ(-12deg) translateY(-8px); }
 }
 
 @keyframes notebookFloatMobile {
