@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import Hero from '@/components/sections/Hero';
 import Projects from '@/components/sections/Projects';
 import Contact from '@/components/sections/Contact';
@@ -5,7 +6,13 @@ import About from '@/components/sections/About';
 import Skills from '@/components/sections/Skills';
 import Showcase from '@/components/sections/Showcase';
 import PerformanceMetrics from '@/components/sections/PerformanceMetrics';
-import ParticleBackground from '@/components/animations/ParticleBackground';
+
+// Dynamic Import para reduzir o tempo de bloqueio da thread principal (Lighthouse)
+// O background de partículas é pesado e não essencial para o LCP (First Paint)
+const ParticleBackground = dynamic(() => import('@/components/animations/ParticleBackground'), { 
+  ssr: false,
+  loading: () => <div className="fixed inset-0 bg-[#050505] -z-10" /> 
+});
 
 export default function Home() {
   return (

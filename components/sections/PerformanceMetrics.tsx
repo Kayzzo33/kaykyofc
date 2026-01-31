@@ -61,15 +61,14 @@ export default function PerformanceMetrics() {
       {/* Ambient Background Glow */}
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-primary/10 blur-[120px] rounded-full pointer-events-none will-change-transform" />
       
-      {/* Header Section */}
+      {/* Header Section - ATUALIZADO PARA PADRÃO VISUAL DO SITE */}
       <div className="mb-20 text-center max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-6xl tracking-[0.2em] uppercase mb-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2">
-          <span className="font-thin text-gray-400 transition-colors duration-500 hover:text-white">
-            Performance
-          </span>
-          <span className="font-thin text-white/50 hidden md:inline">&</span>
-          <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-white bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(34,211,238,0.2)]">
-            Inovação
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest uppercase mb-8 pb-4 leading-tight">
+          <span className="text-white/20 font-thin">PERFORMANCE</span>{" "}
+          <span className="text-white font-thin">&</span>{" "}
+          <br className="md:hidden" />
+          <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white drop-shadow-[0_0_25px_rgba(34,211,238,0.2)]">
+            INOVAÇÃO
           </span>
         </h2>
         <p className="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
@@ -254,6 +253,7 @@ export default function PerformanceMetrics() {
                        <img 
                         src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i * 85}`} 
                         alt="Avatar" 
+                        loading="lazy"
                         className="w-full h-full object-cover"
                        />
                     </div>

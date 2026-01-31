@@ -163,6 +163,7 @@ const Projects = () => {
                 <button 
                     onClick={closeModal}
                     className="flex items-center gap-2 text-gray-300 hover:text-blue-primary transition-colors group cursor-pointer"
+                    aria-label="Voltar para projetos"
                 >
                     <div className="p-2 rounded-full group-hover:bg-white/5 transition-colors">
                         <ChevronLeft size={20} />
@@ -174,25 +175,30 @@ const Projects = () => {
                     <button 
                       onClick={() => setDevice('desktop')} 
                       className={`p-2 rounded transition-all duration-300 cursor-pointer ${device === 'desktop' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}
+                      aria-label="Visualização Desktop"
                     >
                       <Monitor size={20} />
                     </button>
                     <button 
                       onClick={() => setDevice('tablet')} 
                       className={`p-2 rounded transition-all duration-300 cursor-pointer ${device === 'tablet' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}
+                      aria-label="Visualização Tablet"
                     >
                       <Tablet size={20} />
                     </button>
                     <button 
                       onClick={() => setDevice('mobile')} 
                       className={`p-2 rounded transition-all duration-300 cursor-pointer ${device === 'mobile' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}
+                      aria-label="Visualização Mobile"
                     >
                       <Smartphone size={20} />
                     </button>
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <button onClick={closeModal} className="text-white hover:text-red-500 transition-colors p-2 cursor-pointer"><X size={24} /></button>
+                    <button onClick={closeModal} className="text-white hover:text-red-500 transition-colors p-2 cursor-pointer" aria-label="Fechar Modal">
+                      <X size={24} />
+                    </button>
                 </div>
             </div>
 
@@ -253,6 +259,10 @@ const Projects = () => {
                   <img 
                     src={project.image} 
                     alt={project.title}
+                    width={800} // Definir width explícito ajuda a prevenir Layout Shift (CLS)
+                    height={600} // Definir height explícito ajuda a prevenir Layout Shift (CLS)
+                    loading="lazy" // Lazy loading nativo
+                    decoding="async"
                     className="object-cover object-top w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
               ) : (

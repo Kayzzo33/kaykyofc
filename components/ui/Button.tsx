@@ -4,9 +4,8 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/lib/utils';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   variant?: 'primary' | 'outline' | 'ghost';
-  children?: React.ReactNode;
 }
 
 const Button = ({ className, variant = 'primary', children, ...props }: ButtonProps) => {
