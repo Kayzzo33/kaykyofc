@@ -46,7 +46,7 @@ body {
 
 /* Utilities */
 .text-gradient {
-  background: linear-gradient(135deg, #0ea5e9 0%, #a855f7 100%);
+  background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -232,13 +232,13 @@ body {
   50% { transform: translateY(-8px) rotateX(45deg); }
 }
 
-/* CAFE - Canto Inferior DIREITO (Corrigido) */
+/* CAFE */
 .hero-coffee {
   position: absolute;
   width: 70px;
   height: 80px;
   animation: coffeeFloat 6s ease-in-out infinite;
-  right: -20px; /* Mudado de left para right */
+  right: -20px;
   bottom: 0px;
   z-index: 40;
 }
@@ -247,21 +247,21 @@ body {
   50% { transform: translateY(-10px) rotate(-5deg); }
 }
 
-/* Fumaça do Café (Adicionado) */
+/* Fumaça do Café */
 @keyframes steamRise {
   0% { opacity: 0; transform: translateY(0) scale(1); }
   50% { opacity: 0.7; transform: translateY(-10px) scale(1.2); }
   100% { opacity: 0; transform: translateY(-25px) scale(1.5); }
 }
 
-/* CANETA - Canto Inferior ESQUERDO (Corrigido) */
+/* CANETA */
 .hero-pen {
   position: absolute;
   width: 10px;
   height: 100px;
-  left: -20px; /* Mudado de right para left */
+  left: -20px; 
   bottom: 0px;
-  transform: rotate(25deg); /* Invertido o angulo para combinar com o lado esquerdo */
+  transform: rotate(25deg);
   animation: penFloat 5.5s ease-in-out infinite;
   z-index: 40;
 }
@@ -270,7 +270,7 @@ body {
   50% { transform: rotate(25deg) translateY(-8px); }
 }
 
-/* CADERNO - Canto Superior Esquerdo (Em cima, separado) */
+/* CADERNO */
 .hero-notebook {
   position: absolute;
   width: 80px;

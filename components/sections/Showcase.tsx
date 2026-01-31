@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Sparkles, Zap } from 'lucide-react';
 
 const Showcase = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -19,9 +20,7 @@ const Showcase = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top", // Começa assim que o topo atinge o topo da tela
-          // AUMENTADO PARA 350%: Isso garante que a animação termine MUITO antes 
-          // do scroll liberar a próxima sessão.
+          start: "top top", 
           end: "+=350%", 
           scrub: 1,
           pin: true,
@@ -36,7 +35,6 @@ const Showcase = () => {
         .set(contentRef.current, { scale: 0.8, opacity: 0 });
 
       // Animação de Abertura dos Cards
-      // A duração relativa garante que a animação aconteça na primeira metade do scroll
       tl.to(leftCardRef.current, {
         xPercent: -160, 
         rotation: -25,
@@ -56,9 +54,6 @@ const Showcase = () => {
         ease: "power2.out"
       }, 0.5);
 
-      // Buffer de tempo estático:
-      // Adiciona um espaço vazio na timeline para que o usuário veja o resultado 
-      // antes da sessão destravar.
       tl.to({}, { duration: 1.5 });
 
     }, sectionRef);
@@ -70,11 +65,6 @@ const Showcase = () => {
     <div className="w-full bg-transparent py-10 px-4 md:px-8 relative z-20">
       <section 
         ref={sectionRef}
-        // ESTILO CORRIGIDO:
-        // - h-[90vh] para dar respiro
-        // - bg-[#050505] para fundo sólido
-        // - rounded-[60px] direto na section para arredondar os cantos pretos
-        // - border border-white/10 para definição sutil
         className="w-full h-[90vh] flex items-center justify-center bg-[#050505] rounded-[60px] border border-white/10 overflow-hidden relative shadow-2xl"
       >
         
@@ -86,24 +76,28 @@ const Showcase = () => {
           ref={contentRef} 
           className="absolute z-0 text-center px-4 max-w-4xl"
         >
+          {/* Título padronizado com o estilo ARTE & INOVAÇÃO */}
           <h2 className="text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
-            CASES DE <br /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-primary via-purple-400 to-orange-300">
+            <span className="text-white/20 font-thin">CASES</span>{" "}
+            <span className="text-white font-thin">DE</span> <br/>
+            <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
               SUCESSO
             </span>
           </h2>
           
           <div className="max-w-xl mx-auto space-y-6">
             <p className="text-gray-400 text-lg md:text-xl font-light leading-relaxed">
-              Esqueça designs genéricos. Eu construo interfaces pensadas para converter, engajar e destacar sua marca.
+              Esqueça designs genéricos. Eu construo interfaces pensadas estrategicamente para converter, engajar e destacar sua marca.
             </p>
             
             <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-300 font-mono">
-              <span className="px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm shadow-lg">
-                ✨ Design Exclusivo
+              <span className="px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm shadow-lg flex items-center gap-2">
+                <Sparkles size={14} className="text-blue-400" />
+                Design Exclusivo
               </span>
-              <span className="px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm shadow-lg">
-                🚀 Alta Performance
+              <span className="px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm shadow-lg flex items-center gap-2">
+                <Zap size={14} className="text-yellow-400" />
+                Alta Performance
               </span>
             </div>
           </div>

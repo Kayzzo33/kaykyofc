@@ -38,9 +38,6 @@ const Hero = () => {
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      // Otimização Profissional: Usamos .from() em vez de classes CSS.
-      // Isso garante que se o JS falhar, o conteúdo já está lá (Progressive Enhancement).
       
       // 1. Badge
       if (badgeRef.current) {
@@ -87,23 +84,23 @@ const Hero = () => {
         {/* Left: Text Content */}
         <div className="space-y-6 lg:space-y-8 z-20 order-2 lg:order-1 text-center lg:text-left pb-10 lg:pb-0">
           <div className="space-y-4 lg:space-y-6">
-            <div ref={badgeRef} className="invisible-on-load inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mx-auto lg:mx-0">
+            <div ref={badgeRef} className="invisible-on-load inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm mx-auto lg:mx-0">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
               </span>
-              <span className="text-xs font-mono text-gray-300 tracking-wider">OPEN TO WORK</span>
+              <span className="text-xs font-mono text-cyan-400 tracking-wider">OPEN TO WORK</span>
             </div>
             
             <h1 ref={textRef} className="invisible-on-load text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight">
-              Engenharia <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-primary via-blue-glow to-white">Front-End</span> <br/>
+              Desenvolvimento <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-primary via-cyan-400 to-white">Web Full-Stack</span> <br/>
               de Alto Nível.
             </h1>
           </div>
           
-          <p ref={descRef} className="invisible-on-load text-gray-400 text-base sm:text-lg max-w-lg leading-relaxed font-light border-l-2 border-white/10 pl-6 mx-auto lg:mx-0 text-left">
-            Especialista em construir interfaces pixel-perfect, performáticas e escaláveis utilizando o ecossistema React moderno.
+          <p ref={descRef} className="invisible-on-load text-gray-400 text-base sm:text-lg max-w-lg leading-relaxed font-light border-l-2 border-blue-500/30 pl-6 mx-auto lg:mx-0 text-left">
+            Construo soluções web completas que geram resultados reais. Do design ao deploy, da landing page ao SaaS complexo.
           </p>
 
           <div ref={ctaRef} className="invisible-on-load flex gap-4 pt-2 justify-center lg:justify-start">
@@ -137,7 +134,7 @@ const Hero = () => {
                        </div>
                        <div className="hero-window-content">
                           <div className="flex gap-2 items-center mb-3">
-                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] flex items-center justify-center text-xs font-bold text-white">DV</div>
+                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-xs font-bold text-white">DV</div>
                              <div>
                                 <div className="text-white font-bold">Developer</div>
                                 <div className="text-white/50 text-[9px]">Full Stack</div>
@@ -188,12 +185,12 @@ const Hero = () => {
                           <span className="ml-3 text-[9px] text-white/60">Portfolio.jsx</span>
                        </div>
                        <div className="hero-window-content">
-                          <div className="code-line"><span className="text-[#ff79c6]">import</span> <span className="text-[#8be9fd]">React</span> <span className="text-[#ff79c6]">from</span> <span className="text-[#f1fa8c]">'react'</span>;</div>
+                          <div className="code-line"><span className="text-cyan-400">import</span> <span className="text-blue-300">React</span> <span className="text-cyan-400">from</span> <span className="text-green-300">'react'</span>;</div>
                           <div className="code-line h-2"></div>
-                          <div className="code-line"><span className="text-[#ff79c6]">const</span> <span className="text-[#50fa7b]">Portfolio</span> = () {`=>`} {'{'}</div>
-                          <div className="code-line pl-2 text-[#6272a4] italic">// Building digital dreams</div>
-                          <div className="code-line pl-2"><span className="text-[#ff79c6]">return</span> (</div>
-                          <div className="code-line pl-4">&lt;<span className="text-[#8be9fd]">PremiumUX</span> /&gt;</div>
+                          <div className="code-line"><span className="text-cyan-400">const</span> <span className="text-blue-400">Portfolio</span> = () {`=>`} {'{'}</div>
+                          <div className="code-line pl-2 text-gray-500 italic">// Building digital dreams</div>
+                          <div className="code-line pl-2"><span className="text-cyan-400">return</span> (</div>
+                          <div className="code-line pl-4">&lt;<span className="text-blue-300">PremiumUX</span> /&gt;</div>
                           <div className="code-line pl-2">);</div>
                           <div className="code-line">{'}'};</div>
                        </div>
@@ -209,11 +206,11 @@ const Hero = () => {
                           <span className="ml-3 text-[9px] text-white/60">terminal</span>
                        </div>
                        <div className="hero-window-content">
-                          <div className="terminal-line"><span className="text-[#8be9fd]">$</span> npm run dev</div>
-                          <div className="terminal-line text-[#50fa7b]">✓ Server started</div>
-                          <div className="terminal-line"><span className="text-[#f1fa8c]">→</span> http://localhost:3000</div>
-                          <div className="terminal-line text-[#50fa7b]">✓ Build complete</div>
-                          <div className="terminal-line"><span className="text-[#8be9fd]">$</span> <span className="inline-block w-1.5 h-3 bg-[#50fa7b] animate-pulse"></span></div>
+                          <div className="terminal-line"><span className="text-cyan-400">$</span> npm run dev</div>
+                          <div className="terminal-line text-green-400">✓ Server started</div>
+                          <div className="terminal-line"><span className="text-yellow-400">→</span> http://localhost:3000</div>
+                          <div className="terminal-line text-green-400">✓ Build complete</div>
+                          <div className="terminal-line"><span className="text-cyan-400">$</span> <span className="inline-block w-1.5 h-3 bg-green-400 animate-pulse"></span></div>
                        </div>
                     </div>
                  </div>
@@ -246,7 +243,7 @@ const Hero = () => {
               </div>
 
               <div className="hero-pen">
-                 <div className="w-full h-[70px] bg-gradient-to-b from-[#667eea] to-[#764ba2] rounded-t-sm relative shadow-md">
+                 <div className="w-full h-[70px] bg-gradient-to-b from-blue-600 to-cyan-700 rounded-t-sm relative shadow-md">
                     <div className="absolute top-4 right-[-2px] w-1 h-5 bg-gray-400 rounded-r-sm"></div>
                  </div>
                  <div className="w-full h-[30px] bg-[#2a2a2a] clip-path-polygon-[30%_0,70%_0,100%_100%,0_100%]"></div>

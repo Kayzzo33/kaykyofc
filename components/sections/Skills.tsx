@@ -125,7 +125,7 @@ const Skills = () => {
            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest uppercase mb-4">
               <span className="text-white/20 font-thin">STACK</span>{" "}
               <span className="text-white font-thin">&</span>{" "}
-              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-300">
+              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
                 SKILLS
               </span>
            </h2>
@@ -156,12 +156,6 @@ const Skills = () => {
                   left: tool.left,
                 }}
               >
-                {/* 
-                  SEPARAÇÃO CRÍTICA:
-                  Outer Div (acima): Controlado pelo Javascript (Repulsão).
-                  Inner Div (abaixo): Controlado pelo CSS (Animação de flutuar).
-                  Isso evita conflito de 'transform'.
-                */}
                 <div 
                   className={`
                     relative bg-[#1a1a1a] border border-white/10 rounded-full flex items-center justify-center

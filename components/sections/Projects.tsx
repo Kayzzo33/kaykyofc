@@ -229,7 +229,7 @@ const Projects = () => {
            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest uppercase">
               <span className="text-white/20 font-thin">ARTE</span>{" "}
               <span className="text-white font-thin">&</span>{" "}
-              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-300">
+              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
                 INOVAÇÃO
               </span>
            </h2>

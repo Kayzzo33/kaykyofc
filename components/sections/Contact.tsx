@@ -55,7 +55,7 @@ const Contact = () => {
               <span className="text-white/20 font-thin">VAMOS</span>{" "}
               <span className="text-white/20 font-thin">CONVERSAR</span>{" "}
               <span className="text-white font-thin">&</span> <br/>
-              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-300">
+              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
                 CRIAR
               </span>
            </h2>
@@ -75,9 +75,9 @@ const Contact = () => {
                 href="https://www.instagram.com/_xkayky.s/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500 font-semibold hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 font-semibold hover:opacity-80 transition-opacity"
               >
-                Instagram <Instagram size={18} className="text-orange-500" />
+                Instagram <Instagram size={18} className="text-cyan-400" />
               </a>.
             </div>
           </div>
