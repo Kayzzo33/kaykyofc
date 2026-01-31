@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Monitor, Smartphone, Tablet, ChevronLeft, X } from 'lucide-react';
 
 const projects = [
@@ -83,15 +84,19 @@ type DeviceType = 'desktop' | 'tablet' | 'mobile';
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   // Modal States
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [device, setDevice] = useState<DeviceType>('desktop');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Intersection Observer for Lazy Load com Fallback
   useEffect(() => {
-    // Fallback de segurança: Garante que o conteúdo apareça mesmo se o observer falhar
     const fallbackTimeout = setTimeout(() => {
       setIsVisible(true);
     }, 500);
@@ -146,6 +151,75 @@ const Projects = () => {
     setTimeout(() => setSelectedProject(null), 300); 
   };
 
+  // Helper para renderizar o Modal via Portal (Fora da hierarquia da section z-index)
+  const ProjectModal = () => {
+    if (!isModalOpen || !selectedProject || !mounted) return null;
+
+    return createPortal(
+      <div className="fixed inset-0 z-[9999] bg-[#0a0a0a]/95 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
+            
+            {/* Modal Header */}
+            <div className="h-[70px] bg-[#1a1a1a] border-b border-white/10 flex items-center justify-between px-4 md:px-8 relative z-[10000]">
+                <button 
+                    onClick={closeModal}
+                    className="flex items-center gap-2 text-gray-300 hover:text-blue-primary transition-colors group cursor-pointer"
+                >
+                    <div className="p-2 rounded-full group-hover:bg-white/5 transition-colors">
+                        <ChevronLeft size={20} />
+                    </div>
+                    <span className="text-sm font-medium hidden sm:inline">Voltar para Projetos</span>
+                </button>
+
+                <div className="flex items-center gap-2 bg-[#0a0a0a] p-1 rounded-lg border border-white/5">
+                    <button 
+                      onClick={() => setDevice('desktop')} 
+                      className={`p-2 rounded transition-all duration-300 cursor-pointer ${device === 'desktop' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}
+                    >
+                      <Monitor size={20} />
+                    </button>
+                    <button 
+                      onClick={() => setDevice('tablet')} 
+                      className={`p-2 rounded transition-all duration-300 cursor-pointer ${device === 'tablet' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}
+                    >
+                      <Tablet size={20} />
+                    </button>
+                    <button 
+                      onClick={() => setDevice('mobile')} 
+                      className={`p-2 rounded transition-all duration-300 cursor-pointer ${device === 'mobile' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}
+                    >
+                      <Smartphone size={20} />
+                    </button>
+                </div>
+
+                <div className="flex items-center gap-4">
+                    <button onClick={closeModal} className="text-white hover:text-red-500 transition-colors p-2 cursor-pointer"><X size={24} /></button>
+                </div>
+            </div>
+
+            {/* Modal Body */}
+            <div className="h-[calc(100vh-70px)] w-full flex items-center justify-center p-4 md:p-8 overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1a1a1a] to-[#0a0a0a]">
+                <div 
+                    className={`
+                        relative bg-white transition-all duration-500 ease-in-out shadow-2xl overflow-hidden
+                        ${device === 'desktop' ? 'w-full h-full max-w-[95%] max-h-[90%] rounded-lg' : ''}
+                        ${device === 'tablet' ? 'w-[768px] h-[85%] rounded-[20px] border-[8px] border-[#2a2a2a]' : ''}
+                        ${device === 'mobile' ? 'w-[375px] h-[667px] rounded-[30px] border-[10px] border-[#2a2a2a]' : ''}
+                    `}
+                >
+                    <iframe 
+                        src={selectedProject.url} 
+                        title={`Preview of ${selectedProject.title}`}
+                        className="w-full h-full border-0 bg-white"
+                        sandbox="allow-scripts allow-same-origin" 
+                    />
+                </div>
+            </div>
+
+        </div>,
+        document.body
+    );
+  };
+
   return (
     <>
       <div ref={sectionRef} className="container mx-auto px-6 min-h-full flex flex-col justify-center py-20 relative z-10">
@@ -175,7 +249,6 @@ const Projects = () => {
               `}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Image Container - True Lazy Load Logic */}
               {isVisible ? (
                   <img 
                     src={project.image} 
@@ -183,11 +256,9 @@ const Projects = () => {
                     className="object-cover object-top w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
               ) : (
-                  // Skeleton Placeholder while hidden/loading
                   <div className="w-full h-full bg-[#141414] animate-pulse"></div>
               )}
               
-              {/* Overlay Hover Effect */}
               <div className="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px]">
                   <button className="bg-blue-primary text-black font-bold py-3 px-8 rounded-full transform scale-90 group-hover:scale-100 transition-transform duration-300 hover:bg-white hover:text-black">
                     Ver Página
@@ -198,54 +269,8 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* MODAL DE PREVIEW */}
-      {isModalOpen && selectedProject && (
-        <div className="fixed inset-0 z-[100] bg-[#0a0a0a]/95 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
-            
-            {/* Modal Header */}
-            <div className="h-[70px] bg-[#1a1a1a] border-b border-white/10 flex items-center justify-between px-4 md:px-8">
-                <button 
-                    onClick={closeModal}
-                    className="flex items-center gap-2 text-gray-300 hover:text-blue-primary transition-colors group"
-                >
-                    <div className="p-2 rounded-full group-hover:bg-white/5 transition-colors">
-                        <ChevronLeft size={20} />
-                    </div>
-                    <span className="text-sm font-medium hidden sm:inline">Voltar para Projetos</span>
-                </button>
-
-                <div className="flex items-center gap-2 bg-[#0a0a0a] p-1 rounded-lg border border-white/5">
-                    <button onClick={() => setDevice('desktop')} className={`p-2 rounded transition-all duration-300 ${device === 'desktop' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}><Monitor size={20} /></button>
-                    <button onClick={() => setDevice('tablet')} className={`p-2 rounded transition-all duration-300 ${device === 'tablet' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}><Tablet size={20} /></button>
-                    <button onClick={() => setDevice('mobile')} className={`p-2 rounded transition-all duration-300 ${device === 'mobile' ? 'bg-blue-primary text-black' : 'text-gray-500 hover:text-white'}`}><Smartphone size={20} /></button>
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <button onClick={closeModal} className="text-white hover:text-red-500 transition-colors p-2"><X size={24} /></button>
-                </div>
-            </div>
-
-            {/* Modal Body */}
-            <div className="h-[calc(100vh-70px)] w-full flex items-center justify-center p-4 md:p-8 overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1a1a1a] to-[#0a0a0a]">
-                <div 
-                    className={`
-                        relative bg-white transition-all duration-500 ease-in-out shadow-2xl overflow-hidden
-                        ${device === 'desktop' ? 'w-full h-full max-w-[95%] max-h-[90%] rounded-lg' : ''}
-                        ${device === 'tablet' ? 'w-[768px] h-[85%] rounded-[20px] border-[8px] border-[#2a2a2a]' : ''}
-                        ${device === 'mobile' ? 'w-[375px] h-[667px] rounded-[30px] border-[10px] border-[#2a2a2a]' : ''}
-                    `}
-                >
-                    <iframe 
-                        src={selectedProject.url} 
-                        title={`Preview of ${selectedProject.title}`}
-                        className="w-full h-full border-0 bg-white"
-                        sandbox="allow-scripts allow-same-origin" 
-                    />
-                </div>
-            </div>
-
-        </div>
-      )}
+      {/* Render Modal via Portal */}
+      <ProjectModal />
     </>
   );
 };
