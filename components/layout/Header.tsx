@@ -69,6 +69,7 @@ const Header = () => {
         <button
           className="md:hidden text-white z-50"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
+          aria-label={isMobileOpen ? "Fechar Menu" : "Abrir Menu"}
         >
           {isMobileOpen ? <X /> : <Menu />}
         </button>

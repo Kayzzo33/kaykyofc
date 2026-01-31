@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone', // Otimização crítica para Vercel
+  productionBrowserSourceMaps: true, // Habilita Source Maps para debug e remove aviso do Lighthouse
   images: {
     remotePatterns: [
       {

@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/lib/utils';
 
-interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outline' | 'ghost';
 }
 

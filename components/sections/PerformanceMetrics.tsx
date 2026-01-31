@@ -61,9 +61,9 @@ export default function PerformanceMetrics() {
       {/* Ambient Background Glow */}
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-primary/10 blur-[120px] rounded-full pointer-events-none will-change-transform" />
       
-      {/* Header Section - ATUALIZADO PARA PADRÃO VISUAL DO SITE */}
+      {/* Header Section - Padronizado com Contact e Projetos */}
       <div className="mb-20 text-center max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest uppercase mb-8 pb-4 leading-tight">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-widest uppercase mb-8 pb-4 leading-tight">
           <span className="text-white/20 font-thin">PERFORMANCE</span>{" "}
           <span className="text-white font-thin">&</span>{" "}
           <br className="md:hidden" />
@@ -194,8 +194,9 @@ export default function PerformanceMetrics() {
                     </linearGradient>
                   </defs>
                   
+                  {/* Fixed the Path coordinates to prevent browser error */}
                   <path 
-                    d="M0,150 C50,120 100,140 150,80 C200,20 250,60 300,40 C350,20 400,0 400,150 Z" 
+                    d="M0,150 C50,120 100,140 150,80 C200,20 250,60 300,40 C350,20 380,10 400,0 L400,150 Z" 
                     fill="url(#gradient)" 
                     className={cn(
                       "transition-opacity duration-1000 delay-500",
@@ -204,7 +205,7 @@ export default function PerformanceMetrics() {
                   />
                   
                   <path 
-                    d="M0,150 C50,120 100,140 150,80 C200,20 250,60 300,40 C350,20 400,0" 
+                    d="M0,150 C50,120 100,140 150,80 C200,20 250,60 300,40 C350,20 380,10 400,0" 
                     fill="none" 
                     stroke="rgb(34, 211, 238)" 
                     strokeWidth="3" 

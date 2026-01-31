@@ -81,19 +81,26 @@ const About = () => {
            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-2xl border border-white/10">
               
               {/* Bottom Image (The Reveal) - Color */}
+              {/* Otimização: Adicionado /f_auto,q_auto/ para reduzir tamanho e formato webp */}
               <img 
-                src="https://res.cloudinary.com/ddxo3s8an/image/upload/v1769868518/fzvabqw3c5rmt0cw2hfbkqwxsc_laizc7.png" 
+                src="https://res.cloudinary.com/ddxo3s8an/image/upload/f_auto,q_auto/v1769868518/fzvabqw3c5rmt0cw2hfbkqwxsc_laizc7.png" 
                 alt="Kayky Ribeiro Reveal" 
                 className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105"
+                width={500}
+                height={625}
+                loading="lazy"
               />
 
               {/* Top Image (Initial) - Grayscale/Blue Tint */}
               <div className="absolute inset-0 z-10 transition-opacity duration-700 ease-in-out group-hover:opacity-0 bg-[#050505]">
                   <div className="absolute inset-0 bg-blue-primary/10 mix-blend-overlay z-20"></div>
                   <img 
-                    src="https://res.cloudinary.com/dxhlvrach/image/upload/v1769108091/454761d8-13ce-484c-a6d3-d9481ec99958.png" 
+                    src="https://res.cloudinary.com/dxhlvrach/image/upload/f_auto,q_auto/v1769108091/454761d8-13ce-484c-a6d3-d9481ec99958.png" 
                     alt="Kayky Ribeiro" 
                     className="w-full h-full object-cover grayscale opacity-90"
+                    width={500}
+                    height={625}
+                    loading="lazy"
                   />
               </div>
 

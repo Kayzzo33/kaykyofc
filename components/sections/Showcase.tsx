@@ -112,10 +112,14 @@ const Showcase = () => {
             className="absolute w-[240px] h-[350px] md:w-[300px] md:h-[450px] rounded-3xl border border-white/10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden bg-[#1a1a1a]"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 z-10"></div>
+            {/* Otimização Cloudinary */}
             <img 
-              src="https://res.cloudinary.com/ddxo3s8an/image/upload/v1769815705/da753468-e2b1-479f-9a14-53166916f14b.png" 
+              src="https://res.cloudinary.com/ddxo3s8an/image/upload/f_auto,q_auto/v1769815705/da753468-e2b1-479f-9a14-53166916f14b.png" 
               alt="Project Preview Left" 
               className="w-full h-full object-cover"
+              width={300}
+              height={450}
+              loading="lazy"
             />
           </div>
 
@@ -125,10 +129,14 @@ const Showcase = () => {
             className="absolute w-[240px] h-[350px] md:w-[300px] md:h-[450px] rounded-3xl border border-white/10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden bg-[#1a1a1a]"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 z-10"></div>
+            {/* Otimização Cloudinary */}
             <img 
-              src="https://res.cloudinary.com/ddxo3s8an/image/upload/v1769815588/f774dd86-a9cd-4e46-b044-26ec65c9aa67.png" 
+              src="https://res.cloudinary.com/ddxo3s8an/image/upload/f_auto,q_auto/v1769815588/f774dd86-a9cd-4e46-b044-26ec65c9aa67.png" 
               alt="Project Preview Right" 
               className="w-full h-full object-cover"
+              width={300}
+              height={450}
+              loading="lazy"
             />
           </div>
 
