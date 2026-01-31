@@ -25,14 +25,20 @@ export default function Home() {
         <Skills />
       </section>
 
-      {/* Nova sessão adicionada antes de Projects */}
+      {/* Showcase é z-20 internamente */}
       <Showcase />
 
-      <section id="projects" className="section-min-height">
+      {/* 
+        CORREÇÃO CRÍTICA:
+        Adicionado z-30 e bg-bg-primary (#050505).
+        Isso força a sessão de Projetos a ficar EM CIMA da sessão de Showcase 
+        quando o scroll acontece, corrigindo o problema de sobreposição.
+      */}
+      <section id="projects" className="section-min-height relative z-30 bg-bg-primary">
         <Projects />
       </section>
 
-      <section id="contact" className="section-min-height">
+      <section id="contact" className="section-min-height relative z-30 bg-bg-primary">
         <Contact />
       </section>
     </main>

@@ -21,9 +21,9 @@ const Showcase = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=200%", // Distância calibrada para o scroll
+          end: "+=150%", // Reduzido para 150% para liberar o scroll mais rápido e encontrar a sessão de baixo
           scrub: 1,
-          pin: true, // Pinamos a section inteira
+          pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         }
