@@ -42,10 +42,32 @@ const config: Config = {
           '25%': { transform: 'translate(10px, -15px)' },
           '50%': { transform: 'translate(-10px, -10px)' },
           '75%': { transform: 'translate(5px, -20px)' },
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' }
+        },
+        draw: {
+          from: { strokeDashoffset: '1000', opacity: '0' },
+          to: { strokeDashoffset: '0', opacity: '1' }
+        },
+        'pulse-cyan': {
+          '0%, 100%': { opacity: '0.3', filter: 'drop-shadow(0 0 2px rgba(34,211,238,0.2))' },
+          '50%': { opacity: '1', filter: 'drop-shadow(0 0 10px rgba(34,211,238,0.8))' }
+        },
+        'scan-vertical': {
+          '0%': { top: '0%', opacity: '0' },
+          '20%': { opacity: '1' },
+          '80%': { opacity: '1' },
+          '100%': { top: '100%', opacity: '0' }
         }
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
+        shimmer: 'shimmer 2.5s infinite linear',
+        'draw-line': 'draw 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+        'pulse-glow': 'pulse-cyan 3s ease-in-out infinite',
+        'scanner': 'scan-vertical 3s ease-in-out infinite',
       },
     },
   },

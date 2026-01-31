@@ -4,6 +4,7 @@ import Contact from '@/components/sections/Contact';
 import About from '@/components/sections/About';
 import Skills from '@/components/sections/Skills';
 import Showcase from '@/components/sections/Showcase';
+import PerformanceMetrics from '@/components/sections/PerformanceMetrics';
 import ParticleBackground from '@/components/animations/ParticleBackground';
 
 export default function Home() {
@@ -36,6 +37,11 @@ export default function Home() {
       */}
       <section id="projects" className="section-min-height relative z-30 bg-bg-primary">
         <Projects />
+      </section>
+
+      {/* Nova Sessão de Performance com Z-Index mantido para evitar overlap com o Showcase anterior */}
+      <section id="performance" className="relative z-30 bg-bg-primary">
+        <PerformanceMetrics />
       </section>
 
       <section id="contact" className="section-min-height relative z-30 bg-bg-primary">

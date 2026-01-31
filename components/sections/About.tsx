@@ -9,7 +9,6 @@ const CounterItem = ({ end, label }: { end: number, label: string }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Ensure ScrollTrigger is registered
     gsap.registerPlugin(ScrollTrigger);
 
     const el = triggerRef.current;
@@ -19,27 +18,22 @@ const CounterItem = ({ end, label }: { end: number, label: string }) => {
 
     const counter = { val: 0 };
     
-    // Create the animation
     const tween = gsap.to(counter, {
       val: end,
       duration: 2.5,
       ease: "power2.out",
       scrollTrigger: {
         trigger: el,
-        start: "top 85%", // Starts when element is near bottom of viewport
+        start: "top 85%",
         toggleActions: "play none none reverse"
       },
       onUpdate: () => {
-        // Update DOM directly for performance
         const val = Math.ceil(counter.val);
-        // Ensure 2 digits with leading zero
         numEl.innerText = val < 10 ? `0${val}` : `${val}`;
       }
     });
 
-    return () => {
-      tween.kill();
-    };
+    return () => { tween.kill(); };
   }, [end]);
 
   return (
@@ -68,7 +62,7 @@ const About = () => {
         stagger: 0.2,
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%", // Adjusted to ensure visibility before child animations might complete
+          start: "top 80%",
           toggleActions: "play none none reverse"
         },
         clearProps: "all" 
@@ -82,19 +76,32 @@ const About = () => {
     <div ref={containerRef} className="container mx-auto px-6 h-full flex items-center justify-center relative">
       <div className="w-full max-w-6xl grid md:grid-cols-12 gap-12 lg:gap-20 items-center">
         
-        {/* Image Section */}
-        <div className="md:col-span-5 relative about-anim">
+        {/* Image Section with Reveal Effect */}
+        <div className="md:col-span-5 relative about-anim group cursor-pointer">
            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-2xl border border-white/10">
-              <div className="absolute inset-0 bg-blue-primary/10 mix-blend-overlay z-10"></div>
+              
+              {/* Bottom Image (The Reveal) - Color */}
               <img 
-                src="https://res.cloudinary.com/dxhlvrach/image/upload/v1769108091/454761d8-13ce-484c-a6d3-d9481ec99958.png" 
-                alt="Kayky Ribeiro" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                src="https://res.cloudinary.com/ddxo3s8an/image/upload/v1769868518/fzvabqw3c5rmt0cw2hfbkqwxsc_laizc7.png" 
+                alt="Kayky Ribeiro Reveal" 
+                className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105"
               />
+
+              {/* Top Image (Initial) - Grayscale/Blue Tint */}
+              <div className="absolute inset-0 z-10 transition-opacity duration-700 ease-in-out group-hover:opacity-0 bg-[#050505]">
+                  <div className="absolute inset-0 bg-blue-primary/10 mix-blend-overlay z-20"></div>
+                  <img 
+                    src="https://res.cloudinary.com/dxhlvrach/image/upload/v1769108091/454761d8-13ce-484c-a6d3-d9481ec99958.png" 
+                    alt="Kayky Ribeiro" 
+                    className="w-full h-full object-cover grayscale opacity-90"
+                  />
+              </div>
+
            </div>
+           
            {/* Decorative Elements */}
-           <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-primary/20 blur-2xl rounded-full -z-10"></div>
-           <div className="absolute -top-6 -left-6 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full -z-10"></div>
+           <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-primary/20 blur-2xl rounded-full -z-10 transition-all duration-700 group-hover:bg-blue-primary/40"></div>
+           <div className="absolute -top-6 -left-6 w-32 h-32 bg-cyan-500/10 blur-2xl rounded-full -z-10 transition-all duration-700 group-hover:bg-cyan-500/30"></div>
         </div>
 
         {/* Text Section */}
