@@ -5,14 +5,13 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const Showcase = () => {
-  const sectionRef = useRef<HTMLDivElement>(null); // Referência para o pin (Sessão inteira)
-  const cardRef = useRef<HTMLDivElement>(null); // Referência para o visual (Card arredondado)
+  const sectionRef = useRef<HTMLDivElement>(null);
   const leftCardRef = useRef<HTMLDivElement>(null);
   const rightCardRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current || !cardRef.current) return;
+    if (!sectionRef.current) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -20,8 +19,10 @@ const Showcase = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
-          end: "+=150%", // Reduzido para 150% para liberar o scroll mais rápido e encontrar a sessão de baixo
+          start: "top top", // Começa assim que o topo atinge o topo da tela
+          // AUMENTADO PARA 350%: Isso garante que a animação termine MUITO antes 
+          // do scroll liberar a próxima sessão.
+          end: "+=350%", 
           scrub: 1,
           pin: true,
           anticipatePin: 1,
@@ -35,27 +36,30 @@ const Showcase = () => {
         .set(contentRef.current, { scale: 0.8, opacity: 0 });
 
       // Animação de Abertura dos Cards
+      // A duração relativa garante que a animação aconteça na primeira metade do scroll
       tl.to(leftCardRef.current, {
-        xPercent: -150, 
-        rotation: -20,
+        xPercent: -160, 
+        rotation: -25,
         ease: "power2.inOut",
-        duration: 1.5
+        duration: 2
       }, 0)
       .to(rightCardRef.current, {
-        xPercent: 150, 
-        rotation: 20, 
+        xPercent: 160, 
+        rotation: 25, 
         ease: "power2.inOut",
-        duration: 1.5
+        duration: 2
       }, 0)
       .to(contentRef.current, {
         opacity: 1,
         scale: 1,
-        duration: 1,
+        duration: 1.5,
         ease: "power2.out"
       }, 0.5);
 
-      // Pequena pausa dramática antes de liberar o scroll
-      tl.to({}, { duration: 0.2 });
+      // Buffer de tempo estático:
+      // Adiciona um espaço vazio na timeline para que o usuário veja o resultado 
+      // antes da sessão destravar.
+      tl.to({}, { duration: 1.5 });
 
     }, sectionRef);
 
@@ -63,24 +67,19 @@ const Showcase = () => {
   }, []);
 
   return (
-    <section 
-      ref={sectionRef}
-      className="relative w-full h-screen flex items-center justify-center bg-[#050505] overflow-hidden z-20 py-10"
-    >
-      {/* 
-        CONTAINER DO CARD ESTILIZADO 
-        - Rounded corners (arredondado)
-        - Borda sutil para contraste
-        - Margem para não colar nas bordas
-        - Background ligeiramente diferente para destacar do fundo preto total
-      */}
-      <div 
-        ref={cardRef}
-        className="relative w-[95%] h-[90%] bg-[#0a0a0a] rounded-[50px] md:rounded-[80px] border border-white/5 shadow-2xl overflow-hidden flex items-center justify-center"
+    <div className="w-full bg-transparent py-10 px-4 md:px-8 relative z-20">
+      <section 
+        ref={sectionRef}
+        // ESTILO CORRIGIDO:
+        // - h-[90vh] para dar respiro
+        // - bg-[#050505] para fundo sólido
+        // - rounded-[60px] direto na section para arredondar os cantos pretos
+        // - border border-white/10 para definição sutil
+        className="w-full h-[90vh] flex items-center justify-center bg-[#050505] rounded-[60px] border border-white/10 overflow-hidden relative shadow-2xl"
       >
         
-        {/* Decorative Glow no fundo do card */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
+        {/* Decorative Glow interno */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.05)_0%,_transparent_60%)] pointer-events-none"></div>
 
         {/* Background Content (Revealed Text) */}
         <div 
@@ -110,7 +109,7 @@ const Showcase = () => {
           </div>
         </div>
 
-        {/* Cards Wrapper - Centralizados */}
+        {/* Cards Wrapper */}
         <div className="relative z-10 flex items-center justify-center w-full pointer-events-none">
           
           {/* Left Card */}
@@ -141,8 +140,8 @@ const Showcase = () => {
 
         </div>
 
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
