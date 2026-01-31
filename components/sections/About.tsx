@@ -1,42 +1,51 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const CounterItem = ({ end, label }: { end: number, label: string }) => {
-  const [count, setCount] = useState(0);
-  const nodeRef = useRef(null);
+  const numberRef = useRef<HTMLSpanElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = nodeRef.current;
-    if (!el) return;
+    // Ensure ScrollTrigger is registered
+    gsap.registerPlugin(ScrollTrigger);
 
-    gsap.to(el, {
+    const el = triggerRef.current;
+    const numEl = numberRef.current;
+    
+    if (!el || !numEl) return;
+
+    const counter = { val: 0 };
+    
+    // Create the animation
+    const tween = gsap.to(counter, {
+      val: end,
+      duration: 2.5,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: el,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          // Animation logic using GSAP to update state
-          let obj = { val: 0 };
-          gsap.to(obj, {
-            val: end,
-            duration: 2,
-            ease: "power2.out",
-            onUpdate: () => {
-              setCount(Math.ceil(obj.val));
-            }
-          })
-        }
+        start: "top 85%", // Starts when element is near bottom of viewport
+        toggleActions: "play none none reverse"
+      },
+      onUpdate: () => {
+        // Update DOM directly for performance
+        const val = Math.ceil(counter.val);
+        // Ensure 2 digits with leading zero
+        numEl.innerText = val < 10 ? `0${val}` : `${val}`;
       }
     });
+
+    return () => {
+      tween.kill();
+    };
   }, [end]);
 
   return (
-    <div ref={nodeRef}>
+    <div ref={triggerRef}>
       <div className="text-3xl md:text-4xl font-bold text-white flex items-center">
-        {count.toString().padStart(2, '0')}+
+        <span ref={numberRef}>00</span>+
       </div>
       <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{label}</div>
     </div>
@@ -53,13 +62,13 @@ const About = () => {
 
     const ctx = gsap.context(() => {
       gsap.from(".about-anim", { 
-        y: 50, 
+        y: 30, 
         opacity: 0, 
         duration: 1, 
         stagger: 0.2,
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 70%",
+          start: "top 80%", // Adjusted to ensure visibility before child animations might complete
           toggleActions: "play none none reverse"
         },
         clearProps: "all" 
